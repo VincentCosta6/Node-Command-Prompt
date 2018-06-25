@@ -21,8 +21,19 @@ function CommandLine(cmd, func)
             if(this.commands[i] == name)
                 return this.functions[i](name, words);
     }
+    this.deleteCommand = function(name) {
+        for(let i in this.commands)
+            if(this.commands[i] == name)
+            {
+                this.commands.splice(i, 1);
+                this.functions.splice(i, 1);
+            }
+    };
+
+    
     this.addVariable = function(name, value){
         this.variables.push({name: name, value: value});
+        return this.variables[this.variables.length];
     };
 
     this.getVariable = function(name) {
@@ -37,6 +48,13 @@ function CommandLine(cmd, func)
                 return this.variables[i].value = value;
         return null;
     };
+    this.deleteVariable = function(name) {
+        for(let i in this.variables)
+            if(this.variables[i].name == name)
+                this.variables.splice(i, 1);
+    };
+
+
     return this;
 }
 

@@ -22,13 +22,27 @@ command.addCommand("var", function(cmd, words) {
     if(words.length == 0)
         return console.log("Send a variable name");
     if(words.length == 1)
-        return command.getVariable(words[0]);
+    {
+        let v = command.getVariable(words[0]);
+        if(!v)
+            v = command.addVariable(words[0]);
+        console.log(v);
+        return v;
+    }
     else
     {
         if(words[1].charAt(0) == "{")
             words[1] = JSON.parse(words[1]);
-        command.setVariable(words[0], words[1]);
+
+        if(!words[1].includes("-"))
+            command.setVariable(words[0], words[1]);
+        for(let i in words)
+            if(words[i] == "-p")
+                return console.log(command.getVariable(words[0]));
+            else(words[i] == "-d")
+                return command.deleteVariable(words[0]);
     }
+    
 });
 
 command.addCommand("get", function(cmd, words, callback) {
